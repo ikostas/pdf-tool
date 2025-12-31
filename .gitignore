@@ -1,0 +1,10 @@
+release/
+
+# Go test binaries
+*.test
+
+# Go coverage output
+*.out
+
+# Logs
+*.log
