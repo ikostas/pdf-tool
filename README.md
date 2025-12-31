@@ -8,6 +8,7 @@ A cross-platform desktop application for common PDF manipulation tasks, built wi
 - [Screenshots](#screenshots)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Development](#development)
 - [Todo](#todo)
 - [Contributing](#contributing)
 - [License](#license)
@@ -37,7 +38,21 @@ Merge screen:
 
 Unpack and enjoy.
 
-### Prerequisites
+## Usage
+
+After installation, you can run the executable:
+
+```bash
+./pdf-tool
+```
+
+Or according file for Windows.
+
+The application will launch its main menu, from which you can select the desired PDF operation. Follow the on-screen instructions for each function.
+
+Hotkeys are Alt+ an underlined letter.
+
+## Development
 
 -   **Go:** This project was developed with Go `1.24.6`. While older versions might work, using this version or newer is recommended.
     -   [Download and Install Go](https://go.dev/doc/install)
@@ -56,20 +71,6 @@ Unpack and enjoy.
     ```
 
 Icons are not compiled into the binary, by the way.
-
-## Usage
-
-After installation, you can run the executable:
-
-```bash
-./pdf-tool
-```
-
-Or according file for Windows.
-
-The application will launch its main menu, from which you can select the desired PDF operation. Follow the on-screen instructions for each function.
-
-Hotkeys are Alt+ an underlined letter.
 
 ## Todo
 
