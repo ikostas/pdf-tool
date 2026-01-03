@@ -1,4 +1,4 @@
-module pdf-dumb
+module github.com/ikostas/pdf-tool
 
 go 1.24.6
 

@@ -9,6 +9,6 @@ import (
 
 func main() {
   tk.ActivateTheme("azure light")
-  ShowHome()
+  showHome()
   tk.App.Center().Wait()
 }

@@ -17,14 +17,14 @@ Source code: https://github.com/ikostas/pdftool
 Icons by icons8.com`), )
 }
 
-// ShowHome draws main menu
-func ShowHome() {
-  var buttonsArr, bottomBtnsArr ButtonDefs
+// showHome draws main menu
+func showHome() {
+  var buttonsArr, bottomBtnsArr buttonDefs
   var merge, split, rotate, remove, extract, closeApp, unBindDestroy func()
   var msgLabel *tk.TLabelWidget
 
   home := tk.App.Frame()
-  t := Title{
+  t := title{
     wmTitle: "PDF Tool -- main menu",
     title: "Home",
     tipString: "Choose operation",
@@ -33,55 +33,55 @@ func ShowHome() {
     msgLabel: &msgLabel,
   }
 
-  _, _, btnRow := MakeTitle(t)
+  r := makeTitle(t)
+  _, _, btnRow := r.ir, r.mr, r.br
   br1 := home.Frame()
 
   closeApp = func() {
     tk.Destroy(tk.App)
   }
   unBindDestroy = func() {
-    buttonsArr.UnBind()
-    bottomBtnsArr.UnBind()
+    buttonsArr.unbind()
+    bottomBtnsArr.unbind()
     tk.Destroy(home)
     home = nil
   }
   merge = func() {
     unBindDestroy()
-    MergePdf()
+    mergePdf()
   }
   split = func() {
     unBindDestroy()
-    SplitPdf()
+    splitPdf()
   }
   rotate = func() {
     unBindDestroy()
-    RotatePdf()
+    rotatePdf()
   }
   remove = func() {
     unBindDestroy()
-    RemovePdfPages()
+    removePdfPages()
   }
   extract = func() {
     unBindDestroy()
-    ExtractPdf()
+    extractPdf()
   }
 
-  buttonsArr = ButtonDefs{
-    // todo: unbind everything before calling other functions
+  buttonsArr = buttonDefs{
     {"Merge PDFs", "icons/icons8-merge-24.png", "left", 0, merge, "<Alt-m>"},
     {"Split PDF", "icons/icons8-split-24.png", "left", 0, split, "<Alt-s>"},
     {"Rotate PDF pages", "icons/icons8-rotate-24.png", "left", 0, rotate, "<Alt-r>"},
     {"Remove PDF pages", "icons/icons8-remove-24.png", "left", 3, remove, "<Alt-o>"},
     {"Extract PDF pages", "icons/icons8-tweezers-24.png", "left", 1, extract, "<Alt-x>"},
   }
-  bottomBtnsArr = ButtonDefs{
+  bottomBtnsArr = buttonDefs{
     {"About", "icons/icons8-about-24.png", "left", 0, aboutMessageBox, "<Alt-a>"},
     {"Exit", "icons/icons8-exit-24.png", "left", 0, closeApp, "<Alt-e>"},
   }
-  _ = buttonsArr.CreateButtons(br1)
-  _ = bottomBtnsArr.CreateButtons(btnRow)
+  _ = buttonsArr.createButtons(br1)
+  _ = bottomBtnsArr.createButtons(btnRow)
   tk.Pack(br1, tk.Fill("x"))
-  PackBottomBtns(btnRow)
-  buttonsArr.SetHotkeys()
-  bottomBtnsArr.SetHotkeys()
+  packBottomBtns(btnRow)
+  buttonsArr.setHotkeys()
+  bottomBtnsArr.setHotkeys()
 }

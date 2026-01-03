@@ -36,21 +36,13 @@ Merge screen:
 
 ## Installation
 
-Unpack and enjoy.
+There's one binary executable, no installation is required.
 
 ## Usage
 
-After installation, you can run the executable:
+Just run the executable. The application will launch its main menu, from which you can select the desired PDF operation. Follow the on-screen instructions for each function.
 
-```bash
-./pdf-tool
-```
-
-Or according file for Windows.
-
-The application will launch its main menu, from which you can select the desired PDF operation. Follow the on-screen instructions for each function.
-
-Hotkeys are Alt+ an underlined letter.
+Hotkeys are `Alt+` an underlined letter.
 
 ## Development
 
@@ -69,8 +61,6 @@ Hotkeys are Alt+ an underlined letter.
     ```bash
     go build -o pdf-tool .
     ```
-
-Icons are not compiled into the binary, by the way.
 
 ## Todo
 

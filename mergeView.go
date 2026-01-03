@@ -8,7 +8,7 @@ import (
 )
 
 // display list of files in a text box
-func (fileTags *FileTagArr) displayFiles(display *tk.TextWidget, mergeButton *tk.TButtonWidget) {
+func (fileTags *fileTagArr) displayFiles(display *tk.TextWidget, mergeButton *tk.TButtonWidget) {
   display.Configure(tk.State("normal"))
   display.Clear()
 
@@ -76,11 +76,11 @@ func (fileTags *FileTagArr) displayFiles(display *tk.TextWidget, mergeButton *tk
   display.Configure(tk.State("disabled"))
 }
 
-// MergePdf renders title, instruction, input and message rows
-func MergePdf() {
-  var fileTags FileTagArr
+// mergePdf renders title, instruction, input and message rows
+func mergePdf() {
+  var fileTags fileTagArr
   var scroll *tk.TScrollbarWidget
-  var buttonsArr ButtonDefs
+  var buttonsArr buttonDefs
   var display *tk.TextWidget
   var buttons []*tk.TButtonWidget
   var addAndUpdate, clearAndUpdate, home, actMerge func()
@@ -88,7 +88,7 @@ func MergePdf() {
   var msgLabel *tk.TLabelWidget
 
   merge := tk.App.Frame()
-  t := Title{
+  t := title{
     wmTitle: "PDF Tool -- merge",
     title: "Merge PDFs",
     tipString: "Choose files to merge.\nTip: hold Ctrl or Shift to select several files.",
@@ -97,12 +97,13 @@ func MergePdf() {
     msgLabel: &msgLabel,
   }
 
-  inputRow, msgRow, btnRow := MakeTitle(t)
+  r := makeTitle(t)
+  inputRow, msgRow, btnRow := r.ir, r.mr, r.br
 
   addAndUpdate = func() {
-    filesToMerge := AddFiles(true)
+    filesToMerge := addFiles(true)
     if len(filesToMerge) == 1 && filesToMerge[0] == "" { return }
-    fileTags.CreateTags(filesToMerge, &nextID)
+    fileTags.createTags(filesToMerge, &nextID)
     fileTags.displayFiles(display, buttons[1])
   }
   clearAndUpdate = func() {
@@ -110,11 +111,11 @@ func MergePdf() {
     fileTags.displayFiles(display, buttons[1])
   }
   home = func() {
-    GoHome(buttonsArr, &merge)
+    goHome(buttonsArr, &merge)
   }
   actMerge = func() {
     if len(fileTags) < 2 {
-      PackMsg(msgRow, &msgLabel, "Don't press <Alt-M> unless you select at least 2 files to merge")
+      packMsg(msgRow, &msgLabel, "Don't press <Alt-M> unless you select at least 2 files to merge")
       return
     }
     dir := filepath.Dir(fileTags[0].fileWithPath)
@@ -127,7 +128,7 @@ func MergePdf() {
         inFiles = append(inFiles, f.fileWithPath)
       }
       err := api.MergeCreateFile(inFiles, output, false, nil)
-      r := Report{
+      r := report{
         msgRow: msgRow,
         msgLabel: &msgLabel,
         msgSuccess: "Files merged to: ",
@@ -141,16 +142,16 @@ func MergePdf() {
 
   display = inputRow.Text(tk.Height(5), tk.State("disabled"), tk.Wrap("none"), tk.Setgrid(true), tk.Yscrollcommand(func(e *tk.Event) { e.ScrollSet(scroll) }))
   scroll = inputRow.TScrollbar(tk.Command(func(e *tk.Event) { e.Yview(display) }))
-  buttonsArr = ButtonDefs{
+  buttonsArr = buttonDefs{
     {"Add Files", "icons/icons8-add-file-24.png", "left", 0, addAndUpdate, "<Alt-a>"},
     {"Merge PDFs", "icons/icons8-merge-24.png", "left", 0, actMerge, "<Alt-m>"},
     {"Clear", "icons/icons8-clear-24.png", "left", 0, clearAndUpdate, "<Alt-c>"},
     {"Home", "icons/icons8-home-24.png", "left", 0, home, "<Alt-h>"},
   }
-  buttons = buttonsArr.CreateButtons(btnRow)
+  buttons = buttonsArr.createButtons(btnRow)
   buttons[1].Configure(tk.State("disabled"))
   tk.Pack(display, tk.Side("left"), tk.Fill("both"), tk.Expand(true), tk.Padx("0"), tk.Pady("0"))
   tk.Pack(scroll, tk.Side("right"), tk.Fill("y"))
-  PackBottomBtns(btnRow)
-  buttonsArr.SetHotkeys()
+  packBottomBtns(btnRow)
+  buttonsArr.setHotkeys()
 }
